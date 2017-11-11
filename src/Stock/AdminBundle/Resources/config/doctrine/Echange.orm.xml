@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Stock\AdminBundle\Entity\Echange" table="echange">
+    <indexes>
+      <index name="fk_echange_branche1_idx" columns="from_branche_id"/>
+      <index name="fk_echange_branche2_idx" columns="to_branche_id"/>
+      <index name="fk_echange_produit1_idx" columns="produit_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="date" type="date" column="date" nullable="false"/>
+    <field name="quantite" type="integer" column="quantite" nullable="false"/>
+    <many-to-one field="produit" target-entity="Produit">
+      <join-columns>
+        <join-column name="produit_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="toBranche" target-entity="Branche">
+      <join-columns>
+        <join-column name="to_branche_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="fromBranche" target-entity="Branche">
+      <join-columns>
+        <join-column name="from_branche_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
